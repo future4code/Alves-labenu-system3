@@ -31,6 +31,14 @@ async function pegaEstudantePorNome(nome: string): Promise<any> {
     return result
 }
 
+async function selectEstudantePorId(id: string): Promise<any> {
+    const result = await connection('labenusystem_estudante')
+        .select()
+        .whereLike("id", id)
+
+    return result
+}
+
 async function selectEstudantePorTurmaId(turma_id: string): Promise<any> {
     const result = await connection('labenusystem_estudante')
         .select()
@@ -39,9 +47,22 @@ async function selectEstudantePorTurmaId(turma_id: string): Promise<any> {
     return result
 }
 
+async function editaTurmaEstudantePorId(estudante: Estudante): Promise<any> {
+    let id = estudante.getId()
+    let turma_id = estudante.getTurma_id()
+    
+    await connection('labenusystem_estudante')
+        .where("id", id)
+        .update({
+            'turma_id': turma_id
+        })
+}
+
 export {
     insereEstudante,
     selectEstudante,
     pegaEstudantePorNome,
-    selectEstudantePorTurmaId
+    selectEstudantePorTurmaId,
+    selectEstudantePorId,
+    editaTurmaEstudantePorId
 }

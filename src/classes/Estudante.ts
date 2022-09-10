@@ -36,4 +36,7 @@ export class Estudante extends Usuario {
         return this.hobbies
     }
 
+    public setTurma_id(turma_id: string): void {
+        this.turma_id = turma_id
+    }
 }

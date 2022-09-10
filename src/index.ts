@@ -3,12 +3,14 @@ import { criarDocente } from "./endpoints/criarDocente";
 import { criarEstudante } from "./endpoints/criarEstudante";
 import { criarTurma } from "./endpoints/criarTurma";
 import { estudantePorNome } from "./endpoints/estudantePorNome";
-import { selecionarEstudante } from "./endpoints/selecionarEstudante";
-import { buscarTurmas } from "./endpoints/buscarTurmas";
+import { buscarTurmasAtivas } from "./endpoints/buscarTurmasAtivas";
+import { mudarModuloTurma } from "./endpoints/mudarModuloTurma";
+import { mudarEstudanteDeTurma } from "./endpoints/mudarEstudanteDeTurma";
 
+app.get("/turma", buscarTurmasAtivas)
+app.get("/estudante/:nome", estudantePorNome)
 app.post("/estudante", criarEstudante)
 app.post("/turma", criarTurma)
 app.post("/docente", criarDocente)
-app.get("/estudante/:nome", estudantePorNome)
-app.get("/estudante/:nomeEstudante", selecionarEstudante)
-app.get("/turma", buscarTurmas)
+app.put("/turma/:id/:modulo", mudarModuloTurma)
+app.put("/estudante/:id/:turma_id", mudarEstudanteDeTurma)
