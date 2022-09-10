@@ -22,10 +22,26 @@ async function selectEstudante(): Promise<any> {
     return result
 }
 
-async function insereEstudanteHobby(
-    estudante: Estudante
-): Promise<any> {
-    
+async function pegaEstudantePorNome(nome: string): Promise<any> {
+    const result = await connection('labenusystem_estudante')
+        .select()
+        .whereLike("nome", `%${nome}%`)
+        .limit(10)
+
+    return result
 }
 
-export { insereEstudante, selectEstudante }
+async function selectEstudantePorTurmaId(turma_id: string): Promise<any> {
+    const result = await connection('labenusystem_estudante')
+        .select()
+        .where("turma_id", turma_id)
+
+    return result
+}
+
+export {
+    insereEstudante,
+    selectEstudante,
+    pegaEstudantePorNome,
+    selectEstudantePorTurmaId
+}

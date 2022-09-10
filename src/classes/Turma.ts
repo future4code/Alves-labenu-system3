@@ -1,9 +1,11 @@
+import { Estudante } from "./Estudante"
+import { Docente } from "./Docente"
 export class Turma {
     constructor(
         protected id: string,
         protected nome: string,
-        protected docentes: string[],
-        protected estudantes: string[],
+        protected docentes: Docente[],
+        protected estudantes: Estudante[],
         protected modulo: string
     ) {}
 
