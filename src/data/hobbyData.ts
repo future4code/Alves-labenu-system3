@@ -42,7 +42,8 @@ async function selectHobbyByEstudanteId(id: string): Promise<any> {
 async function insereHobby(
     estudante: Estudante
 ): Promise<any> {
-    let estudante_hobbies = estudante.getHobbies()
+    let id = estudante.getId()
+    let estudante_hobbies = await estudante.getHobbies(id)
 
     for (let i = 0; i < estudante_hobbies.length; i++) {
         let hobbies = await selectHobby()
@@ -68,7 +69,7 @@ async function insereEstudanteHobby(
     estudante: Estudante
 ): Promise<any> {
     let estudante_id = estudante.getId()
-    let estudante_hobbies = estudante.getHobbies()
+    let estudante_hobbies = await estudante.getHobbies(estudante_id)
 
     for (let i = 0; i < estudante_hobbies.length; i++) {
         const hobbies = await selectEstudanteHobby()

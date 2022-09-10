@@ -27,8 +27,8 @@ async function selectEspecialidadePorId(id: string): Promise<any> {
 async function insereEspecialidades(
     docente: Docente
 ): Promise<any> {
-    let especialidades = docente.getEspecialidades()
     let docente_id = docente.getId()
+    let especialidades = await docente.getEspecialidades(docente_id)
 
 
     for (let i = 0; i < especialidades.length; i++) {
