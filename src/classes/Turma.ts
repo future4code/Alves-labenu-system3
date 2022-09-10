@@ -31,15 +31,6 @@ export class Turma {
         let docentes: Docente[] = []
         if (tempDocentes.length > 0) {
             for (let j = 0; j < tempDocentes.length; j++) {
-                let tempEspecalidades = await selectDocenteEspecialidadePorDocenteId(tempDocentes[j].id)
-                let especialidades = []
-                if (tempEspecalidades.length > 0) {
-                    for (let k = 0; k < tempEspecalidades.length; k++) {
-                        let especialidade = await selectEspecialidadePorId(tempEspecalidades[k].especialidade_id)
-                        const especialidade_nome = especialidade[0].nome
-                        especialidades.push(especialidade_nome)
-                    }
-                }
                 let novaData_nasc = tempDocentes[j].data_nasc.toLocaleDateString()
                 let novoDocente = new Docente(
                     tempDocentes[j].id,
@@ -47,8 +38,11 @@ export class Turma {
                     tempDocentes[j].email,
                     novaData_nasc,
                     tempDocentes[j].turma_id,
-                    especialidades
+                    []
                 )
+                
+                let especialidades = await novoDocente.getEspecialidades(tempDocentes[j].id)
+                novoDocente.setEspecialidades(especialidades)
                 docentes.push(novoDocente)
             }
             return docentes
@@ -62,15 +56,6 @@ export class Turma {
         let estudantes: Estudante[] = []
         if (tempEstudantes.length > 0) {
             for (let j = 0; j < tempEstudantes.length; j++) {
-                let tempHobbies = await selectHobbyByEstudanteId(tempEstudantes[j].id)
-                let hobbies = []
-                if (tempHobbies.length > 0) {
-                    for (let k = 0; k < tempHobbies.length; k++) {
-                        const hobby = await selectHobbyById(tempHobbies[k].hobby_id)
-                        const hobby_nome = hobby[0].nome
-                        hobbies.push(hobby_nome)
-                    }
-                }
                 let novaData_nasc = tempEstudantes[j].data_nasc.toLocaleDateString()
                 let novoEstudante = new Estudante(
                     tempEstudantes[j].id,
@@ -78,8 +63,11 @@ export class Turma {
                     tempEstudantes[j].email,
                     novaData_nasc,
                     tempEstudantes[j].turma_id,
-                    hobbies
+                    []
                 )
+            
+                let hobbies = await novoEstudante.getHobbies(tempEstudantes[j].id)
+                novoEstudante.setHobbies(hobbies)
                 estudantes.push(novoEstudante)
             }
             return estudantes

@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { insereDocente, selectDocente } from '../data/docenteData'
 import { Docente } from '../classes/Docente'
 import { insereEspecialidades } from '../data/especialidadeData'
+import { selectTurmaPorId } from '../data/turmaData'
 
 export const criarDocente = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -23,6 +24,10 @@ export const criarDocente = async (req: Request, res: Response): Promise<void> =
             id = "1"
         }
 
+        const turma = await selectTurmaPorId(turma_id)
+        if (turma.length === 0) {
+            throw new Error('Nenhuma turma com esse id foi encontrada.')
+        }
         const novoDocente = new Docente(id, nome, email, novaData_nasc, turma_id, especialidades)
         await insereDocente(novoDocente)
         await insereEspecialidades(novoDocente)

@@ -22,6 +22,14 @@ async function selectDocente(): Promise<any> {
     return result
 }
 
+async function selectDocentePorId(id: string): Promise<any> {
+    const result = await connection('labenusystem_docente')
+        .select()
+        .where("id", id)
+
+    return result
+}
+
 async function selectDocentePorTurmaId(turma_id: string): Promise<any> {
     const result = await connection('labenusystem_docente')
         .select()
@@ -30,4 +38,21 @@ async function selectDocentePorTurmaId(turma_id: string): Promise<any> {
     return result
 }
 
-export { insereDocente, selectDocente,selectDocentePorTurmaId }
+async function editaTurmaDocentePorId(docente: Docente): Promise<any> {
+    let id = docente.getId()
+    let turma_id = docente.getTurma_id()
+    
+    await connection('labenusystem_docente')
+        .where("id", id)
+        .update({
+            'turma_id': turma_id
+        })
+}
+
+export {
+    insereDocente,
+    selectDocente,
+    selectDocentePorTurmaId,
+    selectDocentePorId,
+    editaTurmaDocentePorId
+}
