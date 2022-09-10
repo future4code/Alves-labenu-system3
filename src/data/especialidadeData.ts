@@ -8,13 +8,29 @@ async function selectDocenteEspecialidade(): Promise<any> {
     return result
 }
 
+async function selectDocenteEspecialidadePorDocenteId(docente_id: string): Promise<any> {
+    const result = await connection('labenusystem_docente_especialidade')
+        .select()
+        .where("docente_id", docente_id)
+
+    return result
+}
+
+async function selectEspecialidadePorId(id: string): Promise<any> {
+    const result = await connection('labenusystem_especialidade')
+        .select()
+        .where("id", id)
+
+    return result
+}
+
 async function insereEspecialidades(
     docente: Docente
 ): Promise<any> {
     let especialidades = docente.getEspecialidades()
     let docente_id = docente.getId()
-    
-    
+
+
     for (let i = 0; i < especialidades.length; i++) {
         const docente_especialidades = await selectDocenteEspecialidade()
         let id
@@ -44,4 +60,9 @@ async function insereEspecialidades(
     }
 }
 
-export { insereEspecialidades, selectDocenteEspecialidade }
+export {
+    insereEspecialidades,
+    selectDocenteEspecialidade,
+    selectDocenteEspecialidadePorDocenteId,
+    selectEspecialidadePorId
+}

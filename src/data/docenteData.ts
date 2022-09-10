@@ -22,4 +22,12 @@ async function selectDocente(): Promise<any> {
     return result
 }
 
-export { insereDocente, selectDocente }
+async function selectDocentePorTurmaId(turma_id: string): Promise<any> {
+    const result = await connection('labenusystem_docente')
+        .select()
+        .where("turma_id", turma_id)
+
+    return result
+}
+
+export { insereDocente, selectDocente,selectDocentePorTurmaId }
