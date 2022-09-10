@@ -20,4 +20,28 @@ async function selectTurma(): Promise<any> {
     return result
 }
 
-export { insereTurma, selectTurma }
+async function selectTurmaPorId(id: string): Promise<any> {
+    const result = await connection('labenusystem_turmas')
+        .select()
+        .where("id", id)
+
+    return result
+}
+
+async function editaModuloTurmaPorId(turma: Turma): Promise<any> {
+    let id = turma.getId()
+    let modulo = turma.getModulo()
+    
+    await connection('labenusystem_turmas')
+        .where("id", id)
+        .update({
+            'modulo': modulo
+        })
+}
+
+export {
+    insereTurma,
+    selectTurma,
+    selectTurmaPorId,
+    editaModuloTurmaPorId
+}

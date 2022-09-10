@@ -51,7 +51,7 @@ async function insereHobby(
             id = (Number(hobbies.length + 1)).toString()
         } 
         const newHobbies = hobbies.map((item: any) => { return item.nome })
-        
+
         if (newHobbies.includes(estudante_hobbies[i])) {
             continue
         }

@@ -1,5 +1,4 @@
 import { Estudante } from '../classes/Estudante'
-import connection from '../data/connection'
 import { pegaEstudantePorNome } from '../data/estudanteData'
 import { Request, Response } from 'express'
 import { selectHobbyByEstudanteId, selectHobbyById } from '../data/hobbyData'
@@ -15,7 +14,8 @@ export const estudantePorNome = async (req: Request, res: Response): Promise<voi
                                 let novoHobbies = []
                                 if (hobbies.length > 0) {
                                         for (let j = 0; j < hobbies.length; j++) {
-                                                const hobby_nome = await selectHobbyById(hobbies[j].hobby_id)
+                                                const hobby = await selectHobbyById(hobbies[j].hobby_id)
+                                                const hobby_nome = hobby[0].nome
                                                 novoHobbies.push(hobby_nome)
                                         }
                                 }
