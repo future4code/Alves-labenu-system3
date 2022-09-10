@@ -79,7 +79,7 @@ export const buscarTurmas = async (
                 )
                 
                 resposta.push(novaTurma)
-                res.status(200).send(resposta)
+                res.status(200).send({turmas: resposta})
             }
         } else {
             throw new Error('Nenhuma turma encontrada')
