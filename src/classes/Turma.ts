@@ -1,9 +1,7 @@
 import { Estudante } from "./Estudante"
 import { Docente } from "./Docente"
 import { selectDocentePorTurmaId } from "../data/docenteData"
-import { selectDocenteEspecialidadePorDocenteId, selectEspecialidadePorId } from "../data/especialidadeData"
 import { selectEstudantePorTurmaId } from "../data/estudanteData"
-import { selectHobbyByEstudanteId, selectHobbyById } from "../data/hobbyData"
 
 export class Turma {
     constructor(

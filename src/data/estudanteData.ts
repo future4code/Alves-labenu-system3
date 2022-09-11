@@ -58,11 +58,32 @@ async function editaTurmaEstudantePorId(estudante: Estudante): Promise<any> {
         })
 }
 
+async function selectEstudantePorHobbyId(hobby_id: string): Promise<any> {
+    const result = await connection('labenusystem_estudante_hobby')
+        .where("hobby_id", hobby_id)
+    
+    return result
+}
+
+async function selectEstudantePorSigno(data1: string, data2: string): Promise<any> {
+    const [mes1, dia1] = data1.split('-')
+    const [mes2, dia2 ] = data2.split('-')
+
+    const result = await connection.raw(`SELECT  *
+        FROM labenusystem_estudante
+        WHERE data_nasc BETWEEN CONCAT_WS('-', year(data_nasc), ${mes1}, ${dia1})
+        AND CONCAT_WS('-', year(data_nasc), ${mes2}, ${dia2})`)
+
+    return result[0]
+}
+
 export {
     insereEstudante,
     selectEstudante,
     pegaEstudantePorNome,
     selectEstudantePorTurmaId,
     selectEstudantePorId,
-    editaTurmaEstudantePorId
+    editaTurmaEstudantePorId,
+    selectEstudantePorHobbyId,
+    selectEstudantePorSigno
 }

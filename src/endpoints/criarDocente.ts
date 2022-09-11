@@ -28,9 +28,9 @@ export const criarDocente = async (req: Request, res: Response): Promise<void> =
         if (turma.length === 0) {
             throw new Error('Nenhuma turma com esse id foi encontrada.')
         }
-        const novoDocente = new Docente(id, nome, email, novaData_nasc, turma_id, especialidades)
+        const novoDocente = new Docente(id, nome, email, novaData_nasc, turma_id, [])
         await insereDocente(novoDocente)
-        await insereEspecialidades(novoDocente)
+        await insereEspecialidades(novoDocente, especialidades)
         res.status(200).send('Docente cadastrado com sucesso')
 
     } catch (error: any) {
