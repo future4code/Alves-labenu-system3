@@ -5,12 +5,12 @@ import { editaModuloTurmaPorId } from '../data/turmaData'
 
 export const mudarModuloTurma = async (req: Request, res: Response): Promise<void> => {
     try {
-        let modulo = req.params.modulo
+        let { modulo } = req.body
         let id = req.params.id
 
         if (!modulo || (Number(modulo) > 6 || Number(modulo) < 0)) {
             res.statusCode = 404
-            throw new Error('Módulo inválido, valores módulo devem estar entre 0 e 6')
+            throw new Error('Módulo inválido, valores de módulo devem estar entre 0 e 6')
         }
 
         if (!id) {
@@ -24,6 +24,11 @@ export const mudarModuloTurma = async (req: Request, res: Response): Promise<voi
         if (turma.length === 0) {
             res.statusCode = 404
             throw new Error('Nenhuma turma com esse id foi encontrada.')
+        }
+
+        if( turma[0].modulo === modulo) {
+            res.statusCode = 404
+            throw new Error('Módulo informado é igual ao atual.')
         }
 
         const novaTurma = new Turma(

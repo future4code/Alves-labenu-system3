@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import connection from '../data/connection'
 import { Turma } from '../classes/Turma'
 import { insereTurma, selectTurma }  from '../data/turmaData'
 

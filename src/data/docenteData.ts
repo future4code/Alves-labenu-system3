@@ -30,6 +30,14 @@ async function selectDocentePorId(id: string): Promise<any> {
     return result
 }
 
+async function selectDocentePorEspecialidadeId(especialidade_id: string): Promise<any> {
+    const result = await connection('labenusystem_docente_especialidade')
+        .select()
+        .where("especialidade_id", especialidade_id)
+
+    return result
+}
+
 async function selectDocentePorTurmaId(turma_id: string): Promise<any> {
     const result = await connection('labenusystem_docente')
         .select()
@@ -41,7 +49,7 @@ async function selectDocentePorTurmaId(turma_id: string): Promise<any> {
 async function editaTurmaDocentePorId(docente: Docente): Promise<any> {
     let id = docente.getId()
     let turma_id = docente.getTurma_id()
-    
+
     await connection('labenusystem_docente')
         .where("id", id)
         .update({
@@ -49,10 +57,24 @@ async function editaTurmaDocentePorId(docente: Docente): Promise<any> {
         })
 }
 
+async function selectDocentePorSigno(data1: string, data2: string): Promise<any> {
+    const [mes1, dia1] = data1.split('-')
+    const [mes2, dia2] = data2.split('-')
+
+    const result = await connection.raw(`SELECT  *
+        FROM labenusystem_docente
+        WHERE data_nasc BETWEEN CONCAT_WS('-', year(data_nasc), ${mes1}, ${dia1})
+        AND CONCAT_WS('-', year(data_nasc), ${mes2}, ${dia2})`)
+
+    return result[0]
+}
+
 export {
     insereDocente,
     selectDocente,
     selectDocentePorTurmaId,
     selectDocentePorId,
-    editaTurmaDocentePorId
+    editaTurmaDocentePorId,
+    selectDocentePorEspecialidadeId,
+    selectDocentePorSigno
 }
